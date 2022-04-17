@@ -65,7 +65,7 @@ helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
 --set controller.ingressClassResource.name=ingress-nginx \
 --set controller.ingressClassResource.controllerValue="k8s.io/ingress-nginx" \
 --set controller.ingressClassResource.enabled=true \
---set controller.ingressClass=ingress-nginx \
+--set controller.ingressClass=nginx \
 --set controller.ingressClassByName=true \
 --set controller.watchIngressWithoutClass=true \
 --set tcp.4222="bb/nats-server:4222" \
@@ -91,3 +91,10 @@ ingress-nginx	default  	6       	2022-04-17 12:10:26.955273 -0700 PDT	deployed	i
 
 
 > k exec -it -n default deploy/ingress-nginx-controller -- cat /etc/nginx/nginx.conf > nginx-ninja.conf
+
+
+http://nginx.org/en/docs/stream/ngx_stream_ssl_preread_module.html
+
+https://52.23.215.245.nip.io/
+
+https://serversforhackers.com/c/tcp-load-balancing-with-nginx-ssl-pass-thru

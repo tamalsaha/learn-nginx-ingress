@@ -763,6 +763,20 @@ stream {
     {{ end }}
     {{ end }}
 
+    #map $ssl_preread_server_name $custom_tcp_backend_name {
+    #    nats.appscode.ninja      custom-tcp;
+    #    # default                  backend2;
+    #}
+
+    {{ range $tcpServer := .TCPBackends }}
+    # custom-tcp-{{ $tcpServer.Backend.Namespace }}-{{ $tcpServer.Backend.Name }}-{{ $tcpServer.Backend.Port }} {
+    upstream custom-nats-tcp {
+        {{ range $e := $tcpServer.Endpoints }}
+        server {{ $e.Address }}:{{ $e.Port }};
+        {{ end }}
+    }
+    {{ end }}
+
     upstream upstream_balancer {
         server 0.0.0.1:1234; # placeholder
 
@@ -805,12 +819,12 @@ stream {
         proxy_next_upstream_timeout {{ $cfg.ProxyStreamNextUpstreamTimeout }};
         proxy_next_upstream_tries   {{ $cfg.ProxyStreamNextUpstreamTries }};
 
-        proxy_pass              upstream_balancer;
+        proxy_pass              custom-nats-tcp;
         {{ if $tcpServer.Backend.ProxyProtocol.Encode }}
         proxy_protocol          on;
         {{ end }}
 
-        ssl_preread on;
+        # ssl_preread on;
     }
     {{ end }}
 

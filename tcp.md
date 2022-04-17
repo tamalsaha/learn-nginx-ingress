@@ -10,7 +10,8 @@
 ```
 
 ```
-kubectl create configmap ingress-nginx-tmpl -n ace --from-file=nginx.tmpl
+> wget https://github.com/kubernetes/ingress-nginx/raw/controller-v1.1.3/rootfs/etc/nginx/template/nginx.tmpl
+> kubectl create configmap ingress-nginx-tmpl -n ace --from-file=nginx.tmpl
 
 --set controller.customTemplate.configMapName=ingress-nginx-tmpl \
 --set controller.customTemplate.configMapKey=nginx.tmpl
@@ -28,12 +29,6 @@ helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
 --set controller.customTemplate.configMapName=ingress-nginx-tmpl \
 --set controller.customTemplate.configMapKey=nginx.tmpl
 ```
-
-
-
-
-
-
 
 
 ```

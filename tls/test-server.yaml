@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: test-server
+  name: test-server
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-server
+  template:
+    metadata:
+      labels:
+        app: test-server
+    spec:
+      containers:
+      - env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        image: appscode/test-server:1.1
+        imagePullPolicy: IfNotPresent
+        name: server
+        ports:
+        - containerPort: 8080
+          name: http-1
+          protocol: TCP
+
+      volumeMounts:
+      - mountPath: /etc/nats-certs/clients/bytebuilders-cert
+        name: bytebuilders-cert-clients-volume
+  volumes:
+  - name: bytebuilders-cert-clients-volume
+    secret:
+      defaultMode: 420
+      secretName: bytebuilders-cert
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-server
+  namespace: demo
+spec:
+  ports:
+  - name: http-1
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: test-server

@@ -1,7 +1,7 @@
 # Test TCP Proxy
 
 ```
-> kind create cluster --config=kind.yaml
+> kind create cluster
 ```
 
 ```

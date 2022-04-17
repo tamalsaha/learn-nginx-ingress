@@ -25,13 +25,15 @@ helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
 > kubectl expose deployment web --type=ClusterIP --port=8080 -n ace
 ```
 
+- Port forward ingress-nginx svc
 
+```
+k port-forward svc/ingress-nginx-controller 9443:9443 -n ace
+```
 
-9443: "ace/web:8080"
-
-// {{- if .Values.controller.scope.enabled }}
-
-
-{{- if .Values.tcp }}
-- --tcp-services-configmap={{ default "$(POD_NAMESPACE)" .Values.controller.tcp.configMapNamespace }}/{{ include "ingress-nginx.fullname" . }}-tcp
-{{- end }}
+```
+> curl localhost:9443
+Hello, world!
+Version: 1.0.0
+Hostname: web-746c8679d4-h2vkj
+```

@@ -46,6 +46,7 @@ ingress-nginx-controller-58fdb7bb4-fzgxb   1/1     Running     0          36m
 - Install ingress-nginx kubectl plugin
 
 ```
+> cd ~/go/src/k8s.io/ingress-nginx
 > go build -v ./cmd/plugin/*.go
 > sudo mv main /Users/tamal/.krew/bin/kubectl-ingress_nginx
 ```

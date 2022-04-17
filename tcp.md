@@ -10,6 +10,13 @@
 ```
 
 ```
+kubectl create configmap ingress-nginx-tmpl -n ace --from-file=nginx.tmpl
+
+--set controller.customTemplate.configMapName=ingress-nginx-tmpl \
+--set controller.customTemplate.configMapKey=nginx.tmpl
+```
+
+```
 helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
 --namespace ace --create-namespace \
 --set controller.ingressClassResource.name=nginx-ace \
@@ -17,8 +24,17 @@ helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
 --set controller.ingressClassResource.enabled=true \
 --set controller.ingressClass=nginx-ace \
 --set controller.ingressClassByName=true \
---set tcp.9443="ace/web:8080"
+--set tcp.9443="ace/web:8080" \
+--set controller.customTemplate.configMapName=ingress-nginx-tmpl \
+--set controller.customTemplate.configMapKey=nginx.tmpl
 ```
+
+
+
+
+
+
+
 
 ```
 > kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0 -n ace
@@ -37,3 +53,16 @@ Hello, world!
 Version: 1.0.0
 Hostname: web-746c8679d4-h2vkj
 ```
+
+
+
+```
+> wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/rootfs/etc/nginx/template/nginx.tmpl
+
+```
+
+
+
+
+
+

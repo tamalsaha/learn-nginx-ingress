@@ -58,6 +58,36 @@ Hostname: web-746c8679d4-h2vkj
 
 
 
+kubectl create configmap ingress-nginx-tmpl -n default --from-file=nginx.tmpl
+
+helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
+--namespace default --create-namespace \
+--set controller.ingressClassResource.name=ingress-nginx \
+--set controller.ingressClassResource.controllerValue="k8s.io/ingress-nginx" \
+--set controller.ingressClassResource.enabled=true \
+--set controller.ingressClass=ingress-nginx \
+--set controller.ingressClassByName=true \
+--set controller.watchIngressWithoutClass=true \
+--set tcp.4222="bb/nats-server:4222" \
+--set controller.customTemplate.configMapName=ingress-nginx-tmpl \
+--set controller.customTemplate.configMapKey=nginx.tmpl
 
 
 
+
+> kubectl create configmap ingress-nginx-tmpl -n default --from-file=nginx.tmpl
+configmap/ingress-nginx-tmpl created
+
+> helm ls
+NAME         	NAMESPACE	REVISION	UPDATED                                  	STATUS  	CHART               	APP VERSION
+ingress-nginx	default  	5       	2022-02-25 17:43:05.704149237 +0600 +0600	deployed	ingress-nginx-4.0.17	1.1.1
+
+# run helm upgrade
+
+> helm ls
+NAME         	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART               	APP VERSION
+ingress-nginx	default  	6       	2022-04-17 12:10:26.955273 -0700 PDT	deployed	ingress-nginx-4.0.19	1.1.3
+
+
+
+> k exec -it -n default deploy/ingress-nginx-controller -- cat /etc/nginx/nginx.conf > nginx-ninja.conf

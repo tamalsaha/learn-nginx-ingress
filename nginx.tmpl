@@ -809,6 +809,8 @@ stream {
         {{ if $tcpServer.Backend.ProxyProtocol.Encode }}
         proxy_protocol          on;
         {{ end }}
+
+        ssl_preread on;
     }
     {{ end }}
 

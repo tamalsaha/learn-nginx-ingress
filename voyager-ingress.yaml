@@ -77,11 +77,11 @@ spec:
     tcp:
       port: 4222
       backend:
-        backendRules:
-        - 'option tcp-check'
-        # - 'tcp-check expect string +OK'
-        - 'tcp-check send PING\r\n'
-        - 'tcp-check expect string +PONG'
+        # backendRules:
+        # - 'option tcp-check'
+        # # - 'tcp-check expect string +OK'
+        # - 'tcp-check send PING\r\n'
+        # - 'tcp-check expect string +PONG'
         service:
           name: nats-server
           port:
@@ -89,10 +89,10 @@ spec:
   tls:
   - hosts:
     - appscode.ninja
-    - grafana.appscode.ninja
-    - prometheus.appscode.ninja
     - console.appscode.ninja
-    - kubedb.appscode.ninja
     - deploy.appscode.ninja
+    - grafana.appscode.ninja
+    - kubedb.appscode.ninja
     - marketplace.appscode.ninja
+    - prometheus.appscode.ninja
     secretName: bytebuilders-cert

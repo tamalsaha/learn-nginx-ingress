@@ -101,3 +101,20 @@ http://nginx.org/en/docs/stream/ngx_stream_ssl_preread_module.html
 https://52.23.215.245.nip.io/
 
 https://serversforhackers.com/c/tcp-load-balancing-with-nginx-ssl-pass-thru
+
+
+## nats probe
+
+https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-health-check/
+
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /
+        port: 8222
+        scheme: HTTP
+      initialDelaySeconds: 10
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 5
+

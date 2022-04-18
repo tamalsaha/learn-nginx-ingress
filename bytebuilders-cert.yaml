@@ -1,0 +1,50 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  creationTimestamp: "2021-05-25T05:09:36Z"
+  generation: 4
+  labels:
+    app.kubernetes.io/instance: bytebuilders
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: bytebuilders
+    helm.sh/chart: bytebuilders-0.1.0
+  name: bytebuilders-cert
+  namespace: bb
+  ownerReferences:
+  - apiVersion: networking.k8s.io/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Ingress
+    name: nginx-ingress
+    uid: 58bc54e8-2cbb-4cb4-ae3a-ad19a02e7210
+  resourceVersion: "160963677"
+  uid: 366e5d25-82fc-4949-95dc-f75c357a2fcd
+spec:
+  dnsNames:
+  - appscode.ninja
+  - grafana.appscode.ninja
+  - prometheus.appscode.ninja
+  - console.appscode.ninja
+  - kubedb.appscode.ninja
+  - deploy.appscode.ninja
+  - marketplace.appscode.ninja
+  issuerRef:
+    group: cert-manager.io
+    kind: Issuer
+    name: bytebuilders
+  secretName: bytebuilders-cert
+  usages:
+  - digital signature
+  - key encipherment
+status:
+  conditions:
+  - lastTransitionTime: "2022-04-17T09:46:26Z"
+    message: Certificate is up to date and has not expired
+    observedGeneration: 4
+    reason: Ready
+    status: "True"
+    type: Ready
+  notAfter: "2022-07-16T08:46:24Z"
+  notBefore: "2022-04-17T08:46:25Z"
+  renewalTime: "2022-06-16T08:46:24Z"
+  revision: 7

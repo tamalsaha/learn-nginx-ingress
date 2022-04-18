@@ -1,0 +1,92 @@
+apiVersion: voyager.appscode.com/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.appscode.com/type: LoadBalancer
+  # annotations:
+  #   kubernetes.io/ingress.class: voyager
+  name: voyager-ingress
+  namespace: bb
+spec:
+  rules:
+  - host: appscode.ninja
+    http:
+      paths:
+      - backend:
+          service:
+            name: bytebuilders
+            port:
+              number: 80
+        path: /
+  - host: grafana.appscode.ninja
+    http:
+      paths:
+      - backend:
+          service:
+            name: bytebuilders-grafana
+            port:
+              number: 80
+        path: /
+  - host: prometheus.appscode.ninja
+    http:
+      paths:
+      - backend:
+          service:
+            name: bytebuilders-prom-proxy
+            port:
+              number: 80
+        path: /
+  - host: console.appscode.ninja
+    http:
+      paths:
+      - backend:
+          service:
+            name: bytebuilders-cluster-ui
+            port:
+              number: 80
+        path: /
+  - host: kubedb.appscode.ninja
+    http:
+      paths:
+      - backend:
+          service:
+            name: bytebuilders-kubedb-ui
+            port:
+              number: 80
+        path: /
+  - host: deploy.appscode.ninja
+    http:
+      paths:
+      - backend:
+          service:
+            name: bytebuilders-deploy-ui
+            port:
+              number: 80
+        path: /
+  - host: marketplace.appscode.ninja
+    http:
+      paths:
+      - backend:
+          service:
+            name: bytebuilders-marketplace-ui
+            port:
+              number: 80
+        path: /
+  - host: nats.appscode.ninja
+    tcp:
+      port: 4222
+      backend:
+        service:
+          name: nats-server
+          port:
+            number: 4222
+  tls:
+  - hosts:
+    - appscode.ninja
+    - grafana.appscode.ninja
+    - prometheus.appscode.ninja
+    - console.appscode.ninja
+    - kubedb.appscode.ninja
+    - deploy.appscode.ninja
+    - marketplace.appscode.ninja
+    secretName: bytebuilders-cert

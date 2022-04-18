@@ -69,6 +69,9 @@ helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
 --set controller.ingressClassByName=true \
 --set controller.watchIngressWithoutClass=true \
 --set tcp.4222="bb/nats-server:4222" \
+--set tcp.6443="demo/test-server:6443" \
+--set tcp.4343="demo/test-server:4343" \
+--set tcp.6767="demo/test-server:6767" \
 --set controller.customTemplate.configMapName=ingress-nginx-tmpl \
 --set controller.customTemplate.configMapKey=nginx.tmpl
 

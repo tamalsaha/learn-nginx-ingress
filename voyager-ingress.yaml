@@ -75,22 +75,22 @@ spec:
             port:
               number: 80
         path: /
-  - host: nats.appscode.ninja
-    tcp:
-      port: 4222
-      backend:
-        service:
-          name: nats-server
-          port:
-            number: 4222
-  frontendRules:
-  - port: 4222
-    rules:
-    - 'tcp-request connection reject if { src 10.2.0.1 }'
-    - 'tcp-request connection reject if { src 10.2.1.1 }'
-    - 'tcp-request connection reject if { src 10.2.3.1 }'
-    - 'tcp-request connection reject if { src 10.2.4.1 }'
-    - 'tcp-request connection reject if { src 10.2.5.1 }'
+  # - host: nats.appscode.ninja
+  #   tcp:
+  #     port: 4222
+  #     backend:
+  #       service:
+  #         name: nats-server
+  #         port:
+  #           number: 4222
+  # frontendRules:
+  # - port: 4222
+  #   rules:
+  #   - 'tcp-request connection reject if { src 10.2.0.1 }'
+  #   - 'tcp-request connection reject if { src 10.2.1.1 }'
+  #   - 'tcp-request connection reject if { src 10.2.3.1 }'
+  #   - 'tcp-request connection reject if { src 10.2.4.1 }'
+  #   - 'tcp-request connection reject if { src 10.2.5.1 }'
 
   # - host: nats.appscode.ninja
   #   tcp:

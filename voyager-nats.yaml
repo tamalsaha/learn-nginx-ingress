@@ -1,0 +1,30 @@
+apiVersion: voyager.appscode.com/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.appscode.com/type: LoadBalancer
+  name: voyager-nats
+  namespace: bb
+spec:
+  rules:
+  - host: nats.appscode.ninja
+    tcp:
+      port: 4222
+      backend:
+        service:
+          name: nats-server
+          port:
+            number: 4222
+  #       # backendRules:
+  #       # - 'option httpchk GET /'
+  #       # - 'option tcplog'
+  #       # - 'option log-health-checks'
+
+  #       # - 'http-check connect port 8222'
+  #       # - 'http-check connect port 8222'
+  #       # - 'http-check send meth GET  uri /'
+  #       service:
+  #         name: nats-server
+  #         port:
+  #           number: 4222
+

@@ -118,3 +118,10 @@ https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-health-check/
       successThreshold: 1
       timeoutSeconds: 5
 
+
+check-ssl
+
+check-sni
+
+https://hodari.be/posts/2020_09_04_configure_sni_for_haproxy_backends/
+https://discourse.haproxy.org/t/check-ssl-with-sni/2928/2

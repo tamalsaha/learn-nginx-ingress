@@ -3,7 +3,8 @@ helm upgrade -i voyager-operator appscode/voyager \
   --namespace voyager --create-namespace \
   --set cloudProvider=linode \
   --set ingressClass=voyager \
-  --set-file license=/Users/tamal/Downloads/voyager-enterprise-license-c586d5aa-e885-4402-b1b8-2a37cc55085d.txt
+  --set-file license=/Users/tamal/Downloads/voyager-enterprise-license-c586d5aa-e885-4402-b1b8-2a37cc55085d.txt \
+  --set templates.cfgmap=voyager-templates
 
 
 k apply -f voyager-ingress.yaml
@@ -14,3 +15,8 @@ nats --server tls://nats.appscode.ninja:4222 stream report --creds=/Users/tamal/
 
 [8] 2022/04/18 02:39:04.982021 [ERR] 10.2.1.42:38788 - cid:762 - TLS handshake error: read tcp 10.2.4.3:4222->10.2.1.42:38788: i/o timeout
 
+
+- https://cbonte.github.io/haproxy-dconv/2.5/configuration.html#agent-check
+
+> kubectl create configmap -n voyager voyager-templates --from-file=templates/tcp-backend.cfg
+configmap/voyager-templates created

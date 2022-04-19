@@ -3,7 +3,9 @@ kind: Ingress
 metadata:
   annotations:
     ingress.appscode.com/type: LoadBalancer
-    # ingress.appscode.com/check: "false"
+    # applies to backend service
+    # ingress.appscode.com/check: "true"
+    # ingress.appscode.com/check-port: "8222"
   # annotations:
   #   kubernetes.io/ingress.class: voyager
   name: voyager-ingress
@@ -73,19 +75,22 @@ spec:
             port:
               number: 80
         path: /
-  - host: nats.appscode.ninja
-    tcp:
-      port: 4222
-      backend:
-        # backendRules:
-        # - 'option tcp-check'
-        # # - 'tcp-check expect string +OK'
-        # - 'tcp-check send PING\r\n'
-        # - 'tcp-check expect string +PONG'
-        service:
-          name: nats-server
-          port:
-            number: 4222
+  # - host: nats.appscode.ninja
+  #   tcp:
+  #     port: 4222
+  #     backend:
+  #       # backendRules:
+  #       # - 'option httpchk GET /'
+  #       # - 'option tcplog'
+  #       # - 'option log-health-checks'
+
+  #       # - 'http-check connect port 8222'
+  #       # - 'http-check connect port 8222'
+  #       # - 'http-check send meth GET  uri /'
+  #       service:
+  #         name: nats-server
+  #         port:
+  #           number: 4222
   tls:
   - hosts:
     - appscode.ninja

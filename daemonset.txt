@@ -1,0 +1,9 @@
+if $.Values.controller.hostPort.enabled
+
+{{- if or (eq .Values.controller.kind "DaemonSet") 
+
+
+controller:
+  kind: DaemonSet
+  hostPort:
+    enabled: true

@@ -1,3 +1,5 @@
+- https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/hostport.md
+
 if $.Values.controller.hostPort.enabled
 
 {{- if or (eq .Values.controller.kind "DaemonSet") 
@@ -10,6 +12,7 @@ controller:
     enabled: true
 
 
+```
 > k create deployment web --image=gcr.io/google-samples/hello-app:1.0
 deployment.apps/web created
 > k expose deployment web --type=ClusterIP --port=8080
@@ -26,10 +29,11 @@ helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
 --set controller.kind=DaemonSet \
 --set controller.hostPort.enabled=true \
 --set controller.service.external.enabled=false
-
+```
 
 # Test nginx
 
+```
 > k port-forward ds/ingress-nginx-controller 8080:80
 
 > curl -H "Host:hello-world.info" localhost:8080
@@ -40,6 +44,4 @@ helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx  \
 <hr><center>nginx</center>
 </body>
 </html>
-
-
-curl -H "Host:hello-world.info" 45.33.101.154
+```
